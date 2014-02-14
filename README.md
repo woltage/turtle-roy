@@ -31,6 +31,9 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     r 4 (say "hello")           | same as above
     par [play c, play e]        | playes notes C and E in parallel
     bg "red"                    | change background color (red, rgb(255,0,0), #FF0000)
+    color "red"                 | change pen color (red, rgb(255,0,0), #FF0000)
+    text "HELLO"                | draw the text "HELLO" beside the turtle
+    font "40px Arial"           | changes to the 40px Arial font
 
 In addition to this, you may use the full [Roy](http://roy.brianmckenna.org/) programming language.
 
@@ -51,7 +54,7 @@ Square
 
 Flower
 
-    let flower = repeat 36 (rt 10, square)
+    let flower = repeat 36 (sequence[rt 10, square])
     flower
 
 Math

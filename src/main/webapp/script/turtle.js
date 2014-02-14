@@ -29,6 +29,8 @@
       paper.translate(xCenter(), yCenter());
       turtle.translate(xCenter(), yCenter());
       $("#turtlegraphics").css("background-color", "white");
+      paper.font="20px Courier"
+      setColor("black")
       drawTurtle()
     }
     function turtleToHome() {
@@ -65,11 +67,15 @@
         turtle.stroke();
       }
     }
+    function setColor(color) {
+      paper.strokeStyle=color
+      paper.fillStyle=color
+    }
 
     var api = {
       resize: function(newWidth, newHeight) {
         setSize(newWidth, newHeight)
-        clear()
+        init()
       },
       fd: function(dist) {
         Smoothly.step(dist, 5, function(step) {
@@ -121,16 +127,37 @@
         image.src = "images/" + name + ".png"
       },
       background: function(color) {
+        Smoothly.do(function() {
           $("#turtlegraphics").css("background-color", color);
+        })()
       },
-      clear: Smoothly.do(function() {
-        init()
-      }),
+      color: function(color) {
+        Smoothly.do(function() {
+          setColor(color)
+        })()
+      },
+      text: function(text) {
+        Smoothly.do(function() {
+          paper.fillText(text, 0, 0)
+        })()
+      },
+      font: function(font) {
+        Smoothly.do(function() {
+          paper.font = font
+        })()
+      },
+      clear: function() {
+        recorder._recorder.reset()
+        Smoothly.do(function() {
+          init()
+        })()
+      },
       home: Smoothly.do(function() {
         turtleToHome()
       })
     }
-    return api
+    var recorder = window.Recorder(api)
+    return recorder
   }
 
   window.Barrier = function(callback, things) {
